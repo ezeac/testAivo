@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-#RewriteRule ^buscar/(.*) index.php?id=$1 [NC,L]
+RewriteRule ^buscar/(.*) index.php?id=$1 [NC,L]
 
 </IfModule>

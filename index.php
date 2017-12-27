@@ -1,9 +1,10 @@
 <?php
-if ($_REQUEST["id"]=="") {
-	$respuesta = '{"error":"No se ingresó un ID para mostrar (id de muestra: 10215911327682909)"}';
-	echo $respuesta;
-	die();
-} else {
+	if (!isset($_REQUEST["id"])) {
+		$respuesta = '{"error":"No se ingresó un ID para mostrar. Llamada correcta: "localhost/buscar/{idPerfil}" (id de muestra: 10215911327682909)"}';
+		echo $respuesta;
+		die();
+	}
+
 	require_once __DIR__ . '/vendor/autoload.php';
 
 	$fb = new Facebook\Facebook([
@@ -33,6 +34,4 @@ if ($_REQUEST["id"]=="") {
 	} else {
 		echo file_get_contents("https://graph.facebook.com/".$_REQUEST["id"]."?access_token=".$accessToken->getValue());
 	}
-}
-
 ?>
