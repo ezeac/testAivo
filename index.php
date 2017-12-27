@@ -1,40 +1,38 @@
 <?php
 if ($_REQUEST["id"]=="") {
-	echo '{"error":
-		[
-			"message": "No se ingresó un ID (id de muestra: 10215911327682909)"
-		]
-	}';
+	$respuesta = '{"error":"No se ingresó un ID para mostrar (id de muestra: 10215911327682909)"}';
+	echo $respuesta;
 	die();
 } else {
-	$userID = $_REQUEST["id"];
-}
-?>
-<html>
-<head>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="face.js"></script>
-</head>
-<body>
-<script>
-	var userID = "<?php echo $userID; ?>";
+	require_once __DIR__ . '/vendor/autoload.php';
 
-	function obtenerDatos(token, e){
-		e.preventDefault();
+	$fb = new Facebook\Facebook([
+		'app_id' => '2154473484570395',
+		'app_secret' => '6bc8e87316022dd5f9c4dc3a063310be',
+		'default_graph_version' => 'v2.2',
+	]);
 
-		fbObject = new faceObject("<?php echo $userID; ?>",token);
-		
-		if (token == "") {
-			fbObject.getToken();
-		} else {
-			fbObject.getData();
-		}
+	$helper = $fb->getJavaScriptHelper();
+
+	try {
+		$accessToken = $helper->getAccessToken();
+	} catch (Facebook\Exceptions\FacebookResponseException $e) {
+		// When Graph returns an error
+		header('Location: /faceLogin.php?id='.$_REQUEST["id"].'&error='.$e->getMessage());
+		//echo 'Graph returned an error: ' . $e->getMessage();
+		exit;
+	} catch(Facebook\Exceptions\FacebookSDKException $e) {
+		// When validation fails or other local issues
+		header('Location: /faceLogin.php?id='.$_REQUEST["id"]);
+		exit;
 	}
 
-</script>
+	if (! isset($accessToken)) {
+		header('Location: /faceLogin.php?id='.$_REQUEST["id"]);
+		exit;
+	} else {
+		echo file_get_contents("https://graph.facebook.com/".$_REQUEST["id"]."?access_token=".$accessToken->getValue());
+	}
+}
 
-<div class="output">
-</div>
-
-</body>
-</html>
+?>
