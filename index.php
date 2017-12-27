@@ -1,6 +1,6 @@
 <?php
 	if (!isset($_REQUEST["id"])) {
-		$respuesta = '{"error":"No se ingresó un ID para mostrar. Llamada correcta: "localhost/buscar/{idPerfil}" (id de muestra: 10215911327682909)"}';
+		$respuesta = '{"error":"No se ingresó un ID para mostrar. Llamada correcta: "dominio/buscar/{idPerfil}" (id de muestra: 10215911327682909)"}';
 		echo $respuesta;
 		die();
 	}

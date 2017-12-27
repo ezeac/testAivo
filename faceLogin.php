@@ -16,7 +16,7 @@
   logInWithFacebook = function() {
     FB.login(function(response) {
       if (response.authResponse) {
-        $("#button").html('<a style="color: darkgreen;" href="/index.php?id=<?php if (isset($_REQUEST["id"])) { echo $_REQUEST["id"]; }?>">CLICK PARA OBTENER DATOS</a> (o ingresar a: localhost/buscar/<?php if (isset($_REQUEST["id"])) { echo $_REQUEST["id"]; }?>)');
+        $("#button").html('<a style="color: darkgreen;" href="/index.php?id=<?php if (isset($_REQUEST["id"])) { echo $_REQUEST["id"]; }?>">CLICK PARA OBTENER DATOS</a> (o ingresar a: dominio/buscar/<?php if (isset($_REQUEST["id"])) { echo $_REQUEST["id"]; }?>)');
       } else {
         alert('Login cancelado.');
       }
