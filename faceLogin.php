@@ -20,7 +20,7 @@
       } else {
         alert('Login cancelado.');
       }
-    });
+    }, {scope: 'email, public_profile, user_birthday, user_about_me'});
     return false;
   };
 

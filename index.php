@@ -32,6 +32,6 @@
 		header('Location: /faceLogin.php?id='.$_REQUEST["id"]);
 		exit;
 	} else {
-		echo file_get_contents("https://graph.facebook.com/".$_REQUEST["id"]."?access_token=".$accessToken->getValue());
+		echo file_get_contents("https://graph.facebook.com/".$_REQUEST["id"]."?fields=id,name,work,website,address,birthday,email&access_token=".$accessToken->getValue());
 	}
 ?>
